@@ -31,7 +31,7 @@ SOC Dashboard
 
 ## Key Features
 
-* Real-time network traffic monitoring using Suricata
+* Network traffic monitoring using Suricata 
 * Detection of suspicious network activity
 * Nmap scan detection
 * Custom Suricata detection rule
@@ -102,6 +102,8 @@ index=main sourcetype=suricata event_type=alert alert.signature="ET SCAN Possibl
 | stats count by src_ip dest_ip dest_port
 | sort - count
 ```
+Identifies Nmap reconnaissance activity detected by Suricata and forwarded to Splunk.
+
 ### 7. Top Destination Ports
 
 ```spl
@@ -110,10 +112,8 @@ index=main sourcetype=suricata event_type=alert
 | sort - count
 | head 10
 ```
-
 Shows the most frequently observed destination ports in Suricata security alerts, helping identify network services involved in detected activity.
 
-Identifies Nmap reconnaissance activity detected by Suricata and forwarded to Splunk.
 
 ### Additional Investigation Queries
 
@@ -143,19 +143,19 @@ index=main sourcetype=suricata event_type=alert alert.severity=3 dest_port=5432
 | sort - _time
 ```
 
-These searches filter severity 3 alerts for the selected destination ports and display the event time, source, destination, protocol, signature, and application-protocol fields.
+### Investigation Summary
+
+The selected destination ports were investigated using Splunk searches to review severity 3 Suricata alerts and their related network details.
+
+The queries provide visibility into the event time, source and destination addresses, protocol, alert signature, and application-protocol fields. Further validation is required before classifying an alert as a true positive or false positive.
 
 
 ## Custom Detection Rule
 
-A custom Suricata rule-> 192.168.56.101 8000 (msg:"CUSTOM SOC Test - Access to Splunk Web"; sid:1000001; rev:1;)
+```text
+alert tcp any any -> 192.168.56.101 8000 (msg:"CUSTOM SOC Test - Access to Splunk Web"; sid:1000001; rev:1;)
 
-This rule generates a custom Suricata alert when TCP traffic is sent to port 8000 of the Splunk Web service. was created to detect TCP traffic sent to the Splunk Web service:
-
-alert tcp any any 
-
-The rule was tested using controlled traffic, and the generated alert was successfully forwarded to Splunk for security event investigation.
-
+```
 ## Custom Rule Verification
 
 The custom Suricata detection event was verified in Splunk using:
@@ -179,7 +179,7 @@ The system was tested using controlled Nmap scans against the Windows Splunk hos
 sudo nmap -sS -sV 192.168.56.101
 ```
 
-This was used to perform controlled service discovery and verify Suricata detection.
+This command was used to perform controlled service discovery and generate network activity for Suricata detection.
 
 ### Port Scanning
 
@@ -197,10 +197,10 @@ Testing was performed within an isolated virtual lab environment.
 
 | Detection Activity | MITRE ATT&CK Technique | Technique ID |
 |---|---|---|
-| Nmap network scanning | Network Service Scanning | T1046 |
+| Nmap network scanning | Network Service Discovery | T1046 |
 
-The Nmap scanning activity performed during controlled testing maps to the
-Network Service Scanning technique in the MITRE ATT&CK framework.
+The Nmap scanning activity performed during controlled testing maps to
+Network Service Discovery (T1046) in the MITRE ATT&CK framework.
 
 This demonstrates how network reconnaissance activity detected by Suricata
 can be mapped to a recognized adversary technique.
@@ -285,9 +285,7 @@ curl http://192.168.56.101:8000
 
 ## Investigation Notes
 
-Additional port-anomaly queries were used during the investigation of specific network events. These included analysis of ports such as **8089, 135, and 5432**.
-
-These investigation-specific queries are not included in the core public README because the six SPL queries above provide the main security monitoring and detection workflow.
+Additional port-specific queries were used to investigate alerts involving ports **8089, 135, and 5432**. These are documented separately under **Additional Investigation Queries**.
 
 ## Lab Environment
 
@@ -323,6 +321,7 @@ Network-Intrusion-Detection-SOC/
 │   └── suricata.yaml
 │
 ├── splunk/
+│   └── README.md
 │
 └── screenshot/
     ├── soc-dashboard-overview.png
@@ -344,24 +343,27 @@ Network-Intrusion-Detection-SOC/
 * Security Event Investigation
 * Network Traffic Analysis
 * Nmap Reconnaissance Detection
-* Custom IDS Rule Creation
+* Custom Suricata Rule Creation
 * SOC Dashboard Development
 * Log Collection and Analysis
 * Cybersecurity Monitoring
 
-## Project Outcome
+## Limitations
 
-The project demonstrates an end-to-end network security monitoring workflow using **Suricata and Splunk**.
-
-Network traffic is inspected by Suricata, security events are stored in `eve.json`, and the events are forwarded to Splunk for centralized analysis and visualization.
+* The project was tested in a controlled virtual lab environment.
+* Detection depends on the available Suricata rules and may produce false positives.
+* Encrypted network traffic may limit the visibility of some application-level activity.
+* Automated alert notifications and incident response workflows are not currently implemented.
 
 ## Future Improvements
 
-* Integrate additional Suricata detection rules for broader threat coverage.
+* Integrate additional validated Suricata detection rules for broader threat coverage.
 * Develop automated incident response workflows.
 * Add threat intelligence feeds for IP reputation analysis.
 * Create more detailed SOC dashboards for security event investigation.
-* Explore automated alert notifications when supported by the SIEM environment.
+* Implement automated alert notifications when supported by the SIEM environment.
 
+## Project Outcome
 
 The project provides practical experience in **IDS deployment, SIEM integration, security event investigation, network reconnaissance detection, SPL development, and SOC dashboard creation**.
+
