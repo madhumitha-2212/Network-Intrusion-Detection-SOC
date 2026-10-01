@@ -131,6 +131,7 @@ This confirms that the custom Suricata rule generated an event and that the even
 
 The system was tested using controlled Nmap scans against the Windows Splunk host.
 
+
 ### Nmap Service Detection
 
 ```bash
@@ -150,6 +151,19 @@ This was used to generate controlled network scanning activity for IDS testing.
 Suricata successfully detected the Nmap activity and forwarded the resulting security events to Splunk for further analysis and visualization.
 
 Testing was performed within an isolated virtual lab environment.
+
+## MITRE ATT&CK Mapping
+
+| Detection Activity | MITRE ATT&CK Technique | Technique ID |
+|---|---|---|
+| Nmap network scanning | Network Service Scanning | T1046 |
+
+The Nmap scanning activity performed during controlled testing maps to the
+Network Service Scanning technique in the MITRE ATT&CK framework.
+
+This demonstrates how network reconnaissance activity detected by Suricata
+can be mapped to a recognized adversary technique.
+
 
 ## Project Flow
 
