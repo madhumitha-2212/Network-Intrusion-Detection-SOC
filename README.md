@@ -187,7 +187,9 @@ Security Analysis
 
 ### Nmap Scan Detection
 
-![Nmap Scan Detection](screenshot/soc-dashboard-nmap.png)
+![Nmap Scan Detection](screenshot/soc-dashboard-nmap-final.png)
+
+
 
 ## Detection and Alerting
 
