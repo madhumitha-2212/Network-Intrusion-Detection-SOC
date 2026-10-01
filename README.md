@@ -231,6 +231,10 @@ Security Analysis
 
 ![Nmap Scan Detection](screenshot/soc-dashboard-nmap-final.png)
 
+### Top Destination Ports
+
+![Top Destination Ports](screenshot/soc-dashboard-ports.png)
+
 
 
 ## Detection and Alerting
