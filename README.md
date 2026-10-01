@@ -290,7 +290,9 @@ Network-Intrusion-Detection-SOC/
     ├── soc-dashboard-overview.png
     ├── soc-dashboard-alerts.png
     ├── soc-dashboard-traffic.png
-    └── soc-dashboard-nmap.png
+    ├── soc-dashboard-nmap-final.png
+    └── soc-dashboard-ports.png
+
 ```
 
 ## Skills Demonstrated
