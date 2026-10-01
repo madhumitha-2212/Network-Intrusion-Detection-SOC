@@ -102,6 +102,17 @@ index=main sourcetype=suricata event_type=alert alert.signature="ET SCAN Possibl
 | stats count by src_ip dest_ip dest_port
 | sort - count
 ```
+### 7. Top Destination Ports
+
+```spl
+index=main sourcetype=suricata event_type=alert
+| stats count by dest_port
+| sort - count
+| head 10
+```
+
+Shows the most frequently observed destination ports in Suricata security alerts, helping identify network services involved in detected activity.
+
 
 Identifies Nmap reconnaissance activity detected by Suricata and forwarded to Splunk.
 
