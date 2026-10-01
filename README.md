@@ -113,16 +113,46 @@ index=main sourcetype=suricata event_type=alert
 
 Shows the most frequently observed destination ports in Suricata security alerts, helping identify network services involved in detected activity.
 
-
 Identifies Nmap reconnaissance activity detected by Suricata and forwarded to Splunk.
+
+### Additional Investigation Queries
+
+These queries were used to investigate specific destination ports and review the related alert details.
+
+**Investigate alerts involving port 8089**
+
+```spl
+index=main sourcetype=suricata event_type=alert alert.severity=3 dest_port=8089
+| table _time src_ip src_port dest_ip dest_port proto alert.signature app_proto app_proto_tc
+| sort - _time
+```
+
+**Investigate alerts involving port 135**
+
+```spl
+index=main sourcetype=suricata event_type=alert alert.severity=3 dest_port=135
+| table _time src_ip src_port dest_ip dest_port proto alert.signature app_proto app_proto_tc
+| sort - _time
+```
+
+**Investigate alerts involving port 5432**
+
+```spl
+index=main sourcetype=suricata event_type=alert alert.severity=3 dest_port=5432
+| table _time src_ip src_port dest_ip dest_port proto alert.signature app_proto app_proto_tc
+| sort - _time
+```
+
+These searches filter severity 3 alerts for the selected destination ports and display the event time, source, destination, protocol, signature, and application-protocol fields.
+
 
 ## Custom Detection Rule
 
-A custom Suricata rule was created to detect TCP traffic sent to the Splunk Web service:
+A custom Suricata rule-> 192.168.56.101 8000 (msg:"CUSTOM SOC Test - Access to Splunk Web"; sid:1000001; rev:1;)
 
-alert tcp any any -> 192.168.56.101 8000 (msg:"CUSTOM SOC Test - Access to Splunk Web"; sid:1000001; rev:1;)
+This rule generates a custom Suricata alert when TCP traffic is sent to port 8000 of the Splunk Web service. was created to detect TCP traffic sent to the Splunk Web service:
 
-This rule generates a custom Suricata alert when TCP traffic is sent to port 8000 of the Splunk Web service.
+alert tcp any any 
 
 The rule was tested using controlled traffic, and the generated alert was successfully forwarded to Splunk for security event investigation.
 
