@@ -317,4 +317,13 @@ The project demonstrates an end-to-end network security monitoring workflow usin
 
 Network traffic is inspected by Suricata, security events are stored in `eve.json`, and the events are forwarded to Splunk for centralized analysis and visualization.
 
+## Future Improvements
+
+* Integrate additional Suricata detection rules for broader threat coverage.
+* Develop automated incident response workflows.
+* Add threat intelligence feeds for IP reputation analysis.
+* Create more detailed SOC dashboards for security event investigation.
+* Explore automated alert notifications when supported by the SIEM environment.
+
+
 The project provides practical experience in **IDS deployment, SIEM integration, security event investigation, network reconnaissance detection, SPL development, and SOC dashboard creation**.
