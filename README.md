@@ -164,6 +164,23 @@ Network Service Scanning technique in the MITRE ATT&CK framework.
 This demonstrates how network reconnaissance activity detected by Suricata
 can be mapped to a recognized adversary technique.
 
+## Incident Investigation Workflow
+
+The project follows a basic Security Operations Center (SOC) investigation workflow:
+
+```text
+Network Activity
+       ↓
+Suricata Detection
+       ↓
+Security Event
+       ↓
+Splunk Investigation
+       ↓
+Validate Activity
+       ↓
+Document Findings
+```
 
 ## Project Flow
 
