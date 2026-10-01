@@ -275,6 +275,14 @@ The detected events are forwarded to Splunk Enterprise for searching, investigat
 
 This project focuses on IDS detection and SIEM-based investigation. Automated Splunk alert notifications are not enabled in the current Splunk Free license environment.
 
+## Demo and Testing
+
+Trigger the custom detection rule from Kali Linux:
+
+```bash
+curl http://192.168.56.101:8000
+```
+
 ## Investigation Notes
 
 Additional port-anomaly queries were used during the investigation of specific network events. These included analysis of ports such as **8089, 135, and 5432**.
