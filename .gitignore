@@ -1,0 +1,9 @@
+*.log
+*.json
+*.pcap
+*.pcapng
+.env
+*.key
+*.pem
+credentials*
+password*

@@ -1,0 +1,2 @@
+alert tcp any any -> 192.168.56.101 8000 (msg:"CUSTOM SOC Test - Access to Splunk Web"; sid:1000001; rev:1;)
+
